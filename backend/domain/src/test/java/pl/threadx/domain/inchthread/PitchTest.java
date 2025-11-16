@@ -28,33 +28,14 @@ class PitchTest {
         assertIllegalArgumentExceptionThrown(zero);
     }
 
-    private void assertIllegalArgumentExceptionThrown(BigDecimal argument) {
-        assertThatThrownBy(() -> Pitch.fromThreadsPerInch(argument))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Threads per inch value should be greater than zero.");
-    }
-
     @ParameterizedTest
-    @MethodSource("threadsPerInchArguments")
+    @MethodSource("fromThreadsPerInchArguments")
     void fromThreadsPerInch_ShouldReturnNewPitchWith8DecimalPrecision(BigDecimal threadsPerInch, BigDecimal expectedValue) {
         // given, when
         var result = Pitch.fromThreadsPerInch(threadsPerInch).value();
 
         // then
         assertThat(result, is(equalTo(expectedValue)));
-    }
-
-    private static Stream<Arguments> threadsPerInchArguments() {
-        return Stream.of(
-            Arguments.of(BigDecimal.valueOf(80), scaled(0.01250000)),
-            Arguments.of(BigDecimal.valueOf(44), scaled(0.02272727)),
-            Arguments.of(BigDecimal.valueOf(36), scaled(0.02777778)),
-            Arguments.of(BigDecimal.valueOf(20), scaled(0.05000000)),
-            Arguments.of(BigDecimal.valueOf(12), scaled(0.08333333)),
-            Arguments.of(BigDecimal.valueOf(9), scaled(0.11111111)),
-            Arguments.of(BigDecimal.valueOf(8), scaled(0.12500000)),
-            Arguments.of(BigDecimal.valueOf(4.5), scaled(0.22222222))
-        );
     }
 
     @ParameterizedTest
@@ -70,12 +51,30 @@ class PitchTest {
         assertThat(result, is(equalTo(expectedResult)));
     }
 
+    private void assertIllegalArgumentExceptionThrown(BigDecimal argument) {
+        assertThatThrownBy(() -> Pitch.fromThreadsPerInch(argument))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Threads per inch value should be greater than zero.");
+    }
+
+    private static Stream<Arguments> fromThreadsPerInchArguments() {
+        return Stream.of(
+                arguments(36, 0.02777778),
+                arguments(9, 0.11111111),
+                arguments(8, 0.12500000)
+        );
+    }
+
     private static Stream<Arguments> eighthValueArguments() {
         return Stream.of(
-                Arguments.of(BigDecimal.valueOf(36), scaled(0.00347222)),
-                Arguments.of(BigDecimal.valueOf(9), scaled(0.01388889)),
-                Arguments.of(BigDecimal.valueOf(8), scaled(0.01562500))
+                arguments(36, 0.00347222),
+                arguments(9, 0.01388889),
+                arguments(8, 0.01562500)
         );
+    }
+
+    private static Arguments arguments(double input, double expectedResult) {
+        return Arguments.of(BigDecimal.valueOf(input), scaled(expectedResult));
     }
 
     private static BigDecimal scaled(double value) {
