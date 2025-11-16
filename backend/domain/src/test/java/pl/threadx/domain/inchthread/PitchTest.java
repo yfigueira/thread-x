@@ -57,6 +57,27 @@ class PitchTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("eighthValueArguments")
+    void eighthValue_ShouldReturnOneEighthOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
+        // given
+        var pitch = Pitch.fromThreadsPerInch(tpi);
+
+        // when
+        var result = pitch.eighthValue();
+
+        // then
+        assertThat(result, is(equalTo(expectedResult)));
+    }
+
+    private static Stream<Arguments> eighthValueArguments() {
+        return Stream.of(
+                Arguments.of(BigDecimal.valueOf(36), scaled(0.00347222)),
+                Arguments.of(BigDecimal.valueOf(9), scaled(0.01388889)),
+                Arguments.of(BigDecimal.valueOf(8), scaled(0.01562500))
+        );
+    }
+
     private static BigDecimal scaled(double value) {
         return BigDecimal.valueOf(value).setScale(8, RoundingMode.HALF_UP);
     }

@@ -36,4 +36,11 @@ class Pitch {
 
         return new Pitch(value);
     }
+
+    /**
+     * Returns 1/8 of the Pitch instance value.
+     * */
+    BigDecimal eighthValue() {
+        return this.value().divide(BigDecimal.valueOf(8), RoundingMode.HALF_UP);
+    }
 }
