@@ -43,4 +43,11 @@ class Pitch {
     BigDecimal eighthValue() {
         return this.value().divide(BigDecimal.valueOf(8), RoundingMode.HALF_UP);
     }
+
+    /**
+     * Returns 1/4 of the Pitch instance value.
+     * */
+    BigDecimal quarterValue() {
+        return this.value().divide(BigDecimal.valueOf(4), RoundingMode.HALF_UP);
+    }
 }
