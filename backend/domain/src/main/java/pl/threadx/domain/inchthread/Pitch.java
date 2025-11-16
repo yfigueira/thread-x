@@ -50,4 +50,11 @@ class Pitch {
     BigDecimal quarterValue() {
         return this.value().divide(BigDecimal.valueOf(4), RoundingMode.HALF_UP);
     }
+
+    /**
+     * Returns 1/2 of the Pitch instance value.
+     * */
+    BigDecimal halfValue() {
+        return this.value().divide(BigDecimal.valueOf(2), RoundingMode.HALF_UP);
+    }
 }

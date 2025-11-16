@@ -64,6 +64,19 @@ class PitchTest {
         assertThat(result, is(equalTo(expectedResult)));
     }
 
+    @ParameterizedTest
+    @MethodSource("halfValueArguments")
+    void halfValue_ShouldReturnOneQuarterOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
+        // given
+        var pitch = Pitch.fromThreadsPerInch(tpi);
+
+        // when
+        var result = pitch.halfValue();
+
+        // then
+        assertThat(result, is(equalTo(expectedResult)));
+    }
+
     private void assertIllegalArgumentExceptionThrown(BigDecimal argument) {
         assertThatThrownBy(() -> Pitch.fromThreadsPerInch(argument))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -91,6 +104,14 @@ class PitchTest {
                 arguments(36, 0.00694445),
                 arguments(9, 0.02777778),
                 arguments(8, 0.03125000)
+        );
+    }
+
+    private static Stream<Arguments> halfValueArguments() {
+        return Stream.of(
+                arguments(36, 0.01388889),
+                arguments(9, 0.05555556),
+                arguments(8, 0.06250000)
         );
     }
 
