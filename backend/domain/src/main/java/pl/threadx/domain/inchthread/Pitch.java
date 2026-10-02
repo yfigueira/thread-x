@@ -5,17 +5,17 @@ import java.math.RoundingMode;
 
 class Pitch {
 
-    private final BigDecimal value;
+    private final BigDecimal p;
 
-    private Pitch(BigDecimal value) {
-        this.value = value;
+    private Pitch(BigDecimal p) {
+        this.p = p;
     }
 
     /**
      * Returns the Pitch instance value.
      * */
-    BigDecimal value() {
-        return this.value;
+    BigDecimal p() {
+        return this.p;
     }
 
     /**
@@ -40,21 +40,25 @@ class Pitch {
     /**
      * Returns 1/8 of the Pitch instance value.
      * */
-    BigDecimal eighthValue() {
-        return this.value().divide(BigDecimal.valueOf(8), RoundingMode.HALF_UP);
+    BigDecimal p1_8() {
+        return pDividedBy(8);
     }
 
     /**
      * Returns 1/4 of the Pitch instance value.
      * */
-    BigDecimal quarterValue() {
-        return this.value().divide(BigDecimal.valueOf(4), RoundingMode.HALF_UP);
+    BigDecimal p1_4() {
+        return pDividedBy(4);
     }
 
     /**
      * Returns 1/2 of the Pitch instance value.
      * */
-    BigDecimal halfValue() {
-        return this.value().divide(BigDecimal.valueOf(2), RoundingMode.HALF_UP);
+    BigDecimal p1_2() {
+        return pDividedBy(2);
+    }
+
+    private BigDecimal pDividedBy(int dividend) {
+        return this.p().divide(BigDecimal.valueOf(dividend), RoundingMode.HALF_UP);
     }
 }

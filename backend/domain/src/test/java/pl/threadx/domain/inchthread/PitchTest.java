@@ -32,46 +32,46 @@ class PitchTest {
     @MethodSource("fromThreadsPerInchArguments")
     void fromThreadsPerInch_ShouldReturnNewPitchWith8DecimalPrecision(BigDecimal threadsPerInch, BigDecimal expectedValue) {
         // given, when
-        var result = Pitch.fromThreadsPerInch(threadsPerInch).value();
+        var result = Pitch.fromThreadsPerInch(threadsPerInch).p();
 
         // then
         assertThat(result, is(equalTo(expectedValue)));
     }
 
     @ParameterizedTest
-    @MethodSource("eighthValueArguments")
-    void eighthValue_ShouldReturnOneEighthOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
+    @MethodSource("p1_8Arguments")
+    void p1_8_ShouldReturnOneEighthOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
         // given
         var pitch = Pitch.fromThreadsPerInch(tpi);
 
         // when
-        var result = pitch.eighthValue();
+        var result = pitch.p1_8();
 
         // then
         assertThat(result, is(equalTo(expectedResult)));
     }
 
     @ParameterizedTest
-    @MethodSource("quarterValueArguments")
-    void quarterValue_ShouldReturnOneQuarterOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
+    @MethodSource("p1_4Arguments")
+    void p1_4_ShouldReturnOneFourthOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
         // given
         var pitch = Pitch.fromThreadsPerInch(tpi);
 
         // when
-        var result = pitch.quarterValue();
+        var result = pitch.p1_4();
 
         // then
         assertThat(result, is(equalTo(expectedResult)));
     }
 
     @ParameterizedTest
-    @MethodSource("halfValueArguments")
-    void halfValue_ShouldReturnOneQuarterOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
+    @MethodSource("p1_2Arguments")
+    void p1_2_ShouldReturnHalfOfPitchValue(BigDecimal tpi, BigDecimal expectedResult) {
         // given
         var pitch = Pitch.fromThreadsPerInch(tpi);
 
         // when
-        var result = pitch.halfValue();
+        var result = pitch.p1_2();
 
         // then
         assertThat(result, is(equalTo(expectedResult)));
@@ -91,7 +91,7 @@ class PitchTest {
         );
     }
 
-    private static Stream<Arguments> eighthValueArguments() {
+    private static Stream<Arguments> p1_8Arguments() {
         return Stream.of(
                 arguments(36, 0.00347222),
                 arguments(9, 0.01388889),
@@ -99,7 +99,7 @@ class PitchTest {
         );
     }
 
-    private static Stream<Arguments> quarterValueArguments() {
+    private static Stream<Arguments> p1_4Arguments() {
         return Stream.of(
                 arguments(36, 0.00694445),
                 arguments(9, 0.02777778),
@@ -107,7 +107,7 @@ class PitchTest {
         );
     }
 
-    private static Stream<Arguments> halfValueArguments() {
+    private static Stream<Arguments> p1_2Arguments() {
         return Stream.of(
                 arguments(36, 0.01388889),
                 arguments(9, 0.05555556),
