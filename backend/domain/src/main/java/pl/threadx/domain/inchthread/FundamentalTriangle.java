@@ -36,4 +36,45 @@ class FundamentalTriangle {
 
         return new FundamentalTriangle(height);
     }
+
+    /**
+     * Returns 1/8 of the FundamentalTriangle instance height value.
+     * */
+    BigDecimal h1_8() {
+        return hMultipliedBy("0.125");
+    }
+
+    /**
+     * Returns 1/4 of the FundamentalTriangle instance height value.
+     * */
+    BigDecimal h1_4() {
+        return hMultipliedBy("0.25");
+    }
+
+    /**
+     * Returns 3/8 of the FundamentalTriangle instance height value.
+     * */
+    BigDecimal h3_8() {
+        return hMultipliedBy("0.375");
+    }
+
+    /**
+     * Returns 1/2 of the FundamentalTriangle instance height value.
+     * */
+    BigDecimal h1_2() {
+        return hMultipliedBy("0.5");
+    }
+
+    /**
+     * Returns 5/8 of the FundamentalTriangle instance height value.
+     * */
+    BigDecimal h5_8() {
+        return hMultipliedBy("0.625");
+    }
+
+    private BigDecimal hMultipliedBy(String multiplier) {
+        return new BigDecimal(multiplier)
+                .multiply((this.h))
+                .setScale(6, RoundingMode.HALF_UP);
+    }
 }
