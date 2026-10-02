@@ -91,9 +91,9 @@ class FundamentalTriangleTest {
         var fundamentalTriangle = FundamentalTriangle.forPitch(pitch);
 
         // when
-        var result = fundamentalTriangle.h3_8();
+        var result = fundamentalTriangle.h5_8();
 
         // then
-        assertThat(result, is(equalTo(new BigDecimal("0.040595"))));
+        assertThat(result, is(equalTo(new BigDecimal("0.067658"))));
     }
 }
