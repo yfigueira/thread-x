@@ -41,20 +41,24 @@ class Pitch {
      * Returns 1/8 of the Pitch instance value.
      * */
     BigDecimal p1_8() {
-        return this.p().divide(BigDecimal.valueOf(8), RoundingMode.HALF_UP);
+        return pDividedBy(8);
     }
 
     /**
      * Returns 1/4 of the Pitch instance value.
      * */
     BigDecimal p1_4() {
-        return this.p().divide(BigDecimal.valueOf(4), RoundingMode.HALF_UP);
+        return pDividedBy(4);
     }
 
     /**
      * Returns 1/2 of the Pitch instance value.
      * */
     BigDecimal p1_2() {
-        return this.p().divide(BigDecimal.valueOf(2), RoundingMode.HALF_UP);
+        return pDividedBy(2);
+    }
+
+    private BigDecimal pDividedBy(int dividend) {
+        return this.p().divide(BigDecimal.valueOf(dividend), RoundingMode.HALF_UP);
     }
 }
