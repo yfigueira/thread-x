@@ -31,7 +31,7 @@ class FundamentalTriangle {
         }
 
         var height = new BigDecimal("0.866025404")
-                .multiply(pitch.value())
+                .multiply(pitch.p())
                 .setScale(6, RoundingMode.HALF_UP);
 
         return new FundamentalTriangle(height);
