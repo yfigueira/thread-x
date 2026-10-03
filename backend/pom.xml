@@ -21,6 +21,7 @@
         <module>bootstrap</module>
         <module>domain</module>
         <module>application</module>
+        <module>web</module>
     </modules>
 
     <url/>
