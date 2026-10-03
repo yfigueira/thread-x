@@ -20,6 +20,7 @@
     <modules>
         <module>bootstrap</module>
         <module>domain</module>
+        <module>application</module>
     </modules>
 
     <url/>
@@ -37,7 +38,7 @@
     </scm>
 
     <properties>
-        <spring-boot.version>3.5.7</spring-boot.version>
+        <spring-boot.version>4.1.1</spring-boot.version>
         <java.version>21</java.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
     </properties>
