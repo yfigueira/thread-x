@@ -3,7 +3,7 @@ package pl.threadx.domain.inchthread;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class Pitch {
+public class Pitch {
 
     private final BigDecimal p;
 
@@ -14,7 +14,7 @@ class Pitch {
     /**
      * Returns the Pitch instance value.
      * */
-    BigDecimal p() {
+    public BigDecimal p() {
         return this.p;
     }
 
@@ -25,7 +25,7 @@ class Pitch {
      * @param threadsPerInch the selected number of threads per inch.
      *
      * */
-    static Pitch fromThreadsPerInch(BigDecimal threadsPerInch) {
+    public static Pitch fromThreadsPerInch(BigDecimal threadsPerInch) {
         if (threadsPerInch.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Threads per inch value should be greater than zero.");
         }
@@ -40,21 +40,21 @@ class Pitch {
     /**
      * Returns 1/8 of the Pitch instance value.
      * */
-    BigDecimal p1_8() {
+    public BigDecimal p1_8() {
         return pDividedBy(8);
     }
 
     /**
      * Returns 1/4 of the Pitch instance value.
      * */
-    BigDecimal p1_4() {
+    public BigDecimal p1_4() {
         return pDividedBy(4);
     }
 
     /**
      * Returns 1/2 of the Pitch instance value.
      * */
-    BigDecimal p1_2() {
+    public BigDecimal p1_2() {
         return pDividedBy(2);
     }
 
