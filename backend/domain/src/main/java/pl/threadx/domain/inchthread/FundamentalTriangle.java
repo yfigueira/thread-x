@@ -3,7 +3,7 @@ package pl.threadx.domain.inchthread;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class FundamentalTriangle {
+public class FundamentalTriangle {
 
     private final BigDecimal h;
 
@@ -14,7 +14,7 @@ class FundamentalTriangle {
     /**
      * Returns the FundamentalTriangle instance height value.
      * */
-    BigDecimal h() {
+    public BigDecimal h() {
         return this.h;
     }
 
@@ -25,7 +25,7 @@ class FundamentalTriangle {
      * @param pitch the pitch this fundamental triangle is calculated for.
      *
      * */
-    static FundamentalTriangle forPitch(Pitch pitch) {
+    public static FundamentalTriangle forPitch(Pitch pitch) {
         if (pitch == null) {
             throw new IllegalArgumentException("Pitch cannot be null.");
         }
@@ -40,35 +40,35 @@ class FundamentalTriangle {
     /**
      * Returns 1/8 of the FundamentalTriangle instance height value.
      * */
-    BigDecimal h1_8() {
+    public BigDecimal h1_8() {
         return hMultipliedBy("0.125");
     }
 
     /**
      * Returns 1/4 of the FundamentalTriangle instance height value.
      * */
-    BigDecimal h1_4() {
+    public BigDecimal h1_4() {
         return hMultipliedBy("0.25");
     }
 
     /**
      * Returns 3/8 of the FundamentalTriangle instance height value.
      * */
-    BigDecimal h3_8() {
+    public BigDecimal h3_8() {
         return hMultipliedBy("0.375");
     }
 
     /**
      * Returns 1/2 of the FundamentalTriangle instance height value.
      * */
-    BigDecimal h1_2() {
+    public BigDecimal h1_2() {
         return hMultipliedBy("0.5");
     }
 
     /**
      * Returns 5/8 of the FundamentalTriangle instance height value.
      * */
-    BigDecimal h5_8() {
+    public BigDecimal h5_8() {
         return hMultipliedBy("0.625");
     }
 
