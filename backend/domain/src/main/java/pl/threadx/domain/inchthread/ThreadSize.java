@@ -1,7 +1,7 @@
 package pl.threadx.domain.inchthread;
 
 public enum ThreadSize {
-    Nr0("Nr O"),
+    Nr0("Nr 0"),
     Nr1("Nr 1"),
     Nr2("Nr 2"),
     Nr3("Nr 3"),
