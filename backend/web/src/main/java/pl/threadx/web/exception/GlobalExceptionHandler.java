@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import pl.threadx.domain.inchthread.ThreadMappingNotSupportedException;
 
 import java.time.LocalDateTime;
 
@@ -25,5 +26,19 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(ThreadMappingNotSupportedException.class)
+    public ResponseEntity<ExceptionMessage> handleThreadMappingNotSupported(ThreadMappingNotSupportedException ex, HttpServletRequest req) {
+        log.error("[ {} ] Input not supported:\n{}", req.getRemoteAddr(), ex.getMessage());
+
+        var response = ExceptionMessage.builder()
+                .method(req.getMethod())
+                .path(req.getRequestURI())
+                .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.unprocessableContent().body(response);
     }
 }

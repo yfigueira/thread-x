@@ -60,6 +60,24 @@ class BootstrapApplicationIT {
                 .body("message", is(equalTo("At least one of the provided values is not supported")));
     }
 
+    @Test
+    void whenUnsupportedSizeAndThreadsPerInchCombinationReceived_ShouldReturn422UnprocessableContent() {
+        given().contentType(ContentType.JSON)
+                .body("""
+                      {
+                        "threadSize": "Nr0",
+                        "threadPerInch": "_10",
+                        "toleranceClass": "_2A"
+                      }
+                      """)
+                .when()
+                .post("v1/inch-threads/params-calc")
+                .then()
+                .statusCode(422)
+                .header("Content-Type", ContentType.JSON.toString())
+                .body("message", is(equalTo("The combination of thread size Nr 0 with 10 threads per inch is not supported")));
+    }
+
     private static Stream<Arguments> notSupportedValueArguments() {
         return Stream.of(
             Arguments.of("""
