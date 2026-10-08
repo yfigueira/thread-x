@@ -11,11 +11,11 @@ public class ThreadSeriesMapper {
         initializeMappings();
     }
 
-    ThreadSeries mapSeriesFor(ThreadSize threadSize, ThreadsPerInch threadsPerInch) {
+    public ThreadSeries mapSeriesFor(ThreadSize threadSize, ThreadsPerInch threadsPerInch) {
         var key = "%s-%s".formatted(threadSize.designation(), threadsPerInch.value());
         if (!mappings.containsKey(key)) {
             throw new ThreadMappingNotSupportedException(
-                    "The combination of thread size [ %s ] and threads per inch [ %s ] is not supported"
+                    "The combination of thread size %s with %s threads per inch is not supported"
                             .formatted(threadSize.designation(), threadsPerInch.value()));
         }
         return mappings.get(key);

@@ -41,7 +41,7 @@ class ThreadSeriesMapperTest {
         // when, then
         assertThatThrownBy(() -> mapper.mapSeriesFor(threadSize, threadsPerInch))
                 .isInstanceOf(ThreadMappingNotSupportedException.class)
-                .hasMessage("The combination of thread size [ Nr 0 ] and threads per inch [ 10 ] is not supported");
+                .hasMessage("The combination of thread size Nr 0 with 10 threads per inch is not supported");
     }
 
     private static Stream<Arguments> threadSeriesMappingArguments() {
