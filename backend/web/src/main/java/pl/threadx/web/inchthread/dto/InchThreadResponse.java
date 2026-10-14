@@ -10,7 +10,7 @@ public record InchThreadResponse(
 
     public static InchThreadResponse fromInchThread(InchThread inchThread) {
         return new InchThreadResponse(
-                BasicProfileDto.fromBasicProfile(inchThread.getBasicProfile())
+                BasicProfileDto.fromBasicProfile(inchThread.basicProfile())
         );
     }
 }

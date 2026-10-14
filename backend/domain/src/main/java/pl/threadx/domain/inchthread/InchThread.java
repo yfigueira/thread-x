@@ -1,13 +1,11 @@
 package pl.threadx.domain.inchthread;
 
-import lombok.Getter;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-@Getter
 public sealed abstract class InchThread permits ExternalInchThread, InternalInchThread {
 
     private final ThreadSize threadSize;
@@ -26,7 +24,6 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.toleranceClass = toleranceClass;
         this.threadSeries = mapThreadSeries();
         this.basicProfile = new BasicProfile(this.threadsPerInch);
-
     }
 
     /**
@@ -49,6 +46,29 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
             case _1A, _2A, _3A -> new ExternalInchThread(threadSize, threadsPerInch, toleranceClass);
             case _1B, _2B, _3B -> new InternalInchThread(threadSize, threadsPerInch, toleranceClass);
         };
+    }
+
+    /**
+     * @return This thread's basic profile.
+     * */
+    public BasicProfile basicProfile() {
+        return this.basicProfile;
+    }
+
+    ThreadSize threadSize() {
+        return this.threadSize;
+    }
+
+    ThreadsPerInch threadsPerInch() {
+        return this.threadsPerInch;
+    }
+
+    ToleranceClass toleranceClass() {
+        return this.toleranceClass;
+    }
+
+    ThreadSeries threadSeries() {
+        return this.threadSeries;
     }
 
     BigDecimal lengthOfEngagement() {
