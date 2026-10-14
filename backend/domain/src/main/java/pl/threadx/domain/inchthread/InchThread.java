@@ -12,6 +12,7 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
     private final ThreadsPerInch threadsPerInch;
     private final ToleranceClass toleranceClass;
     private final ThreadSeries threadSeries;
+    private final BasicProfile basicProfile;
     private final Pitch pitch;
     private final FundamentalTriangle fundamentalTriangle;
 
@@ -24,6 +25,7 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.threadsPerInch = threadsPerInch;
         this.toleranceClass = toleranceClass;
         this.threadSeries = mapThreadSeries();
+        this.basicProfile = new BasicProfile(this.threadsPerInch);
         this.pitch = Pitch.fromThreadsPerInch(this.threadsPerInch.numValue());
         this.fundamentalTriangle = FundamentalTriangle.forPitch(this.pitch);
 

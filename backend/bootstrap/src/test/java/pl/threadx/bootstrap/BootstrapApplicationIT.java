@@ -43,8 +43,7 @@ class BootstrapApplicationIT {
                 .then()
                 .statusCode(200)
                 .header("Content-Type", ContentType.JSON.toString())
-                .body("pitch", notNullValue())
-                .body("fundamentalTriangle", notNullValue());
+                .body("basicProfile", notNullValue());
     }
 
     @ParameterizedTest
