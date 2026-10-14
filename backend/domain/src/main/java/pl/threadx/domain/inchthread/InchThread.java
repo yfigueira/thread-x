@@ -3,6 +3,8 @@ package pl.threadx.domain.inchthread;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 @Getter
@@ -13,8 +15,6 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
     private final ToleranceClass toleranceClass;
     private final ThreadSeries threadSeries;
     private final BasicProfile basicProfile;
-    private final Pitch pitch;
-    private final FundamentalTriangle fundamentalTriangle;
 
     InchThread(ThreadSize threadSize, ThreadsPerInch threadsPerInch, ToleranceClass toleranceClass) {
         Objects.requireNonNull(threadSize);
@@ -26,8 +26,6 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.toleranceClass = toleranceClass;
         this.threadSeries = mapThreadSeries();
         this.basicProfile = new BasicProfile(this.threadsPerInch);
-        this.pitch = Pitch.fromThreadsPerInch(this.threadsPerInch.numValue());
-        this.fundamentalTriangle = FundamentalTriangle.forPitch(this.pitch);
 
     }
 
@@ -50,6 +48,16 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         return switch (toleranceClass) {
             case _1A, _2A, _3A -> new ExternalInchThread(threadSize, threadsPerInch, toleranceClass);
             case _1B, _2B, _3B -> new InternalInchThread(threadSize, threadsPerInch, toleranceClass);
+        };
+    }
+
+    BigDecimal lengthOfEngagement() {
+        return switch (threadSeries) {
+            case UNC, UNF, _4UN, _6UN, _8UN ->
+                new BigDecimal(threadSize.diameter()).setScale(4, RoundingMode.HALF_UP);
+
+            case UNEF, _12UN, _16UN, _20UN, _28UN, _32UN ->
+                    basicProfile.p().multiply(new BigDecimal("9")).setScale(4, RoundingMode.HALF_UP);
         };
     }
 
