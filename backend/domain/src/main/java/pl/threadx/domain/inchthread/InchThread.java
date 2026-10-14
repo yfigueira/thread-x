@@ -22,7 +22,7 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.threadSize = threadSize;
         this.threadsPerInch = threadsPerInch;
         this.toleranceClass = toleranceClass;
-        this.threadSeries = mapThreadSeries();
+        this.threadSeries = ThreadSeriesMapper.map(threadSize, threadsPerInch);
         this.basicProfile = new BasicProfile(this.threadsPerInch);
     }
 
@@ -79,10 +79,5 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
             case UNEF, _12UN, _16UN, _20UN, _28UN, _32UN ->
                     basicProfile.p().multiply(new BigDecimal("9")).setScale(4, RoundingMode.HALF_UP);
         };
-    }
-
-    private ThreadSeries mapThreadSeries() {
-        var mapper = new ThreadSeriesMapper();
-        return mapper.mapSeriesFor(this.threadSize, this.threadsPerInch);
     }
 }

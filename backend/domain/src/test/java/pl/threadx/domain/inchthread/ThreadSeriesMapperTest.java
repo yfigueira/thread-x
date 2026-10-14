@@ -21,11 +21,8 @@ class ThreadSeriesMapperTest {
             ThreadsPerInch threadsPerInch,
             ThreadSeries expectedResult)
     {
-        // given
-        var mapper = new ThreadSeriesMapper();
-
-        // when
-        var result = mapper.mapSeriesFor(threadSize, threadsPerInch);
+        // given, when
+        var result = ThreadSeriesMapper.map(threadSize, threadsPerInch);
 
         // then
         assertThat(result, is(equalTo(expectedResult)));
@@ -36,12 +33,20 @@ class ThreadSeriesMapperTest {
         // given
         var threadSize = ThreadSize.Nr0;
         var threadsPerInch = ThreadsPerInch._10;
-        var mapper = new ThreadSeriesMapper();
 
         // when, then
-        assertThatThrownBy(() -> mapper.mapSeriesFor(threadSize, threadsPerInch))
+        assertThatThrownBy(() -> ThreadSeriesMapper.map(threadSize, threadsPerInch))
                 .isInstanceOf(ThreadMappingNotSupportedException.class)
                 .hasMessage("The combination of thread size Nr 0 with 10 threads per inch is not supported");
+    }
+
+    @Test
+    void whenThreadSizeOrThreadsPerInchIsNull_ShouldThrowNullPointerException() {
+        assertThatThrownBy(() -> ThreadSeriesMapper.map(ThreadSize._1, null))
+                .isInstanceOf(NullPointerException.class);
+
+        assertThatThrownBy(() -> ThreadSeriesMapper.map(null, ThreadsPerInch._8))
+                .isInstanceOf(NullPointerException.class);
     }
 
     private static Stream<Arguments> threadSeriesMappingArguments() {
