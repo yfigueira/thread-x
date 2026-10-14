@@ -12,8 +12,8 @@ public record InchThreadResponse(
 
     public static InchThreadResponse fromInchThread(InchThread inchThread) {
         return new InchThreadResponse(
-                PitchDto.fromPitch(inchThread.pitch()),
-                FundamentalTriangleDto.fromFundamentalTriangle(inchThread.fundamentalTriangle())
+                PitchDto.fromPitch(inchThread.getPitch()),
+                FundamentalTriangleDto.fromFundamentalTriangle(inchThread.getFundamentalTriangle())
         );
     }
 }

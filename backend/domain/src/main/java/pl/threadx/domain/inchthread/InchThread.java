@@ -12,6 +12,8 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
     private final ThreadsPerInch threadsPerInch;
     private final ToleranceClass toleranceClass;
     private final ThreadSeries threadSeries;
+    private final Pitch pitch;
+    private final FundamentalTriangle fundamentalTriangle;
 
     InchThread(ThreadSize threadSize, ThreadsPerInch threadsPerInch, ToleranceClass toleranceClass) {
         Objects.requireNonNull(threadSize);
@@ -22,6 +24,9 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.threadsPerInch = threadsPerInch;
         this.toleranceClass = toleranceClass;
         this.threadSeries = mapThreadSeries();
+        this.pitch = Pitch.fromThreadsPerInch(this.threadsPerInch.numValue());
+        this.fundamentalTriangle = FundamentalTriangle.forPitch(this.pitch);
+
     }
 
     /**

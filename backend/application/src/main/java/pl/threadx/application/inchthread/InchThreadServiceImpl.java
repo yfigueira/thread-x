@@ -15,7 +15,7 @@ class InchThreadServiceImpl implements InchThreadService {
 
         var lengthOfEngagement = getLengthOfEngagement(series, cmd.threadSize(), pitch);
 
-        return new InchThread(pitch, fundamentalTriangle);
+        return InchThread.newInchThread(cmd.threadSize(), cmd.threadsPerInch(), cmd.toleranceClass());
     }
 
     private LengthOfEngagement getLengthOfEngagement(ThreadSeries series, ThreadSize size, Pitch pitch) {
