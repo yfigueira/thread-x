@@ -4,16 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.threadx.domain.inchthread.InchThread;
 
 public record InchThreadResponse(
-        @JsonProperty("pitch")
-        PitchDto pitchDto,
-        @JsonProperty("fundamentalTriangle")
-        FundamentalTriangleDto fundamentalTriangleDto
+        @JsonProperty("basicProfile")
+        BasicProfileDto basicProfileDto
 ) {
 
     public static InchThreadResponse fromInchThread(InchThread inchThread) {
         return new InchThreadResponse(
-                PitchDto.fromPitch(inchThread.getPitch()),
-                FundamentalTriangleDto.fromFundamentalTriangle(inchThread.getFundamentalTriangle())
+                BasicProfileDto.fromBasicProfile(inchThread.basicProfile())
         );
     }
 }

@@ -1,19 +1,18 @@
 package pl.threadx.domain.inchthread;
 
-import lombok.Getter;
 import lombok.NonNull;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
-@Getter
 public sealed abstract class InchThread permits ExternalInchThread, InternalInchThread {
 
     private final ThreadSize threadSize;
     private final ThreadsPerInch threadsPerInch;
     private final ToleranceClass toleranceClass;
     private final ThreadSeries threadSeries;
-    private final Pitch pitch;
-    private final FundamentalTriangle fundamentalTriangle;
+    private final BasicProfile basicProfile;
 
     InchThread(ThreadSize threadSize, ThreadsPerInch threadsPerInch, ToleranceClass toleranceClass) {
         Objects.requireNonNull(threadSize);
@@ -23,10 +22,8 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.threadSize = threadSize;
         this.threadsPerInch = threadsPerInch;
         this.toleranceClass = toleranceClass;
-        this.threadSeries = mapThreadSeries();
-        this.pitch = Pitch.fromThreadsPerInch(this.threadsPerInch.numValue());
-        this.fundamentalTriangle = FundamentalTriangle.forPitch(this.pitch);
-
+        this.threadSeries = ThreadSeriesMapper.map(threadSize, threadsPerInch);
+        this.basicProfile = new BasicProfile(this.threadsPerInch);
     }
 
     /**
@@ -51,8 +48,36 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         };
     }
 
-    private ThreadSeries mapThreadSeries() {
-        var mapper = new ThreadSeriesMapper();
-        return mapper.mapSeriesFor(this.threadSize, this.threadsPerInch);
+    /**
+     * @return This thread's basic profile.
+     * */
+    public BasicProfile basicProfile() {
+        return this.basicProfile;
+    }
+
+    ThreadSize threadSize() {
+        return this.threadSize;
+    }
+
+    ThreadsPerInch threadsPerInch() {
+        return this.threadsPerInch;
+    }
+
+    ToleranceClass toleranceClass() {
+        return this.toleranceClass;
+    }
+
+    ThreadSeries threadSeries() {
+        return this.threadSeries;
+    }
+
+    BigDecimal lengthOfEngagement() {
+        return switch (threadSeries) {
+            case UNC, UNF, _4UN, _6UN, _8UN ->
+                new BigDecimal(threadSize.diameter()).setScale(4, RoundingMode.HALF_UP);
+
+            case UNEF, _12UN, _16UN, _20UN, _28UN, _32UN ->
+                    basicProfile.p().multiply(new BigDecimal("9")).setScale(4, RoundingMode.HALF_UP);
+        };
     }
 }
