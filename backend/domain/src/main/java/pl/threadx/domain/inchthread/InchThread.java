@@ -23,7 +23,7 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.threadsPerInch = threadsPerInch;
         this.toleranceClass = toleranceClass;
         this.threadSeries = ThreadSeriesMapper.map(threadSize, threadsPerInch);
-        this.basicProfile = new BasicProfile(this.threadsPerInch);
+        this.basicProfile = new BasicProfile(this.threadsPerInch, this.threadSize);
     }
 
     /**
