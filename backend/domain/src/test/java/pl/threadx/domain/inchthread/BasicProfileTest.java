@@ -163,5 +163,42 @@ class BasicProfileTest {
     @Test
     void d_ShouldReturnBasicMajorDiameterValueWith4DecimalPrecision() {
         // given
+        var basicProfile = new BasicProfile(ThreadsPerInch._8, ThreadSize._1);
+        var expectedDiameter = new BigDecimal("1.0000");
+
+        // when
+        var result = basicProfile.d();
+
+        // then
+        assertThat(result, is(equalTo(expectedDiameter)));
+        assertThat(result.scale(), is(equalTo(4)));
+    }
+
+    @Test
+    void d1_ShouldReturnBasicMinorDiameterValueWith4DecimalPrecision() {
+        // given
+        var basicProfile = new BasicProfile(ThreadsPerInch._8, ThreadSize._1);
+        var expectedDiameter = new BigDecimal("0.8647");
+
+        // when
+        var result = basicProfile.d1();
+
+        // then
+        assertThat(result, is(equalTo(expectedDiameter)));
+        assertThat(result.scale(), is(equalTo(4)));
+    }
+
+    @Test
+    void d2_ShouldReturnBasicPitchDiameterValueWith4DecimalPrecision() {
+        // given
+        var basicProfile = new BasicProfile(ThreadsPerInch._8, ThreadSize._1);
+        var expectedDiameter = new BigDecimal("0.9188");
+
+        // when
+        var result = basicProfile.d2();
+
+        // then
+        assertThat(result, is(equalTo(expectedDiameter)));
+        assertThat(result.scale(), is(equalTo(4)));
     }
 }

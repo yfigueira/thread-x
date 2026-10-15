@@ -112,7 +112,31 @@ public class BasicProfile {
      * @return This basic profile's basic major diameter (d/D), rounded to 4 decimal places.
      * */
     public BigDecimal d() {
-        return new BigDecimal(this.threadsPerInch.value())
+        return new BigDecimal(this.threadSize.diameter())
+                .setScale(4, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * @return This basic profile's basic minor diameter (d1/D1), rounded to 4 decimal places.
+     * */
+    public BigDecimal d1() {
+        var subtrahend = new BigDecimal(2)
+                .multiply(this.h5I8());
+
+        return this.d()
+                .subtract(subtrahend)
+                .setScale(4, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * @return This basic profile's basic pitch diameter (d2/D2), rounded to 4 decimal places.
+     * */
+    public BigDecimal d2() {
+        var subtrahend = new BigDecimal(2)
+                .multiply(this.h3I8());
+
+        return this.d()
+                .subtract(subtrahend)
                 .setScale(4, RoundingMode.HALF_UP);
     }
 }
