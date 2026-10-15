@@ -23,7 +23,7 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
         this.threadsPerInch = threadsPerInch;
         this.toleranceClass = toleranceClass;
         this.threadSeries = ThreadSeriesMapper.map(threadSize, threadsPerInch);
-        this.basicProfile = new BasicProfile(this.threadsPerInch);
+        this.basicProfile = new BasicProfile(this.threadsPerInch, this.threadSize);
     }
 
     /**
@@ -74,7 +74,7 @@ public sealed abstract class InchThread permits ExternalInchThread, InternalInch
     BigDecimal lengthOfEngagement() {
         return switch (threadSeries) {
             case UNC, UNF, _4UN, _6UN, _8UN ->
-                new BigDecimal(threadSize.diameter()).setScale(4, RoundingMode.HALF_UP);
+                this.basicProfile.d().setScale(4, RoundingMode.HALF_UP);
 
             case UNEF, _12UN, _16UN, _20UN, _28UN, _32UN ->
                     basicProfile.p().multiply(new BigDecimal("9")).setScale(4, RoundingMode.HALF_UP);
