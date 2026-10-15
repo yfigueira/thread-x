@@ -1,0 +1,33 @@
+name: Run Backend Unit & Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  compile-and-run-tests:
+    name: Compile and Run Unit & Integration Tests
+    runs-on: ubuntu-22.04
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'corretto'
+
+      - name: Run unit & integration tests
+        run: mvn -B clean verify
